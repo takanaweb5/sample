@@ -70,9 +70,12 @@ if (document.readyState !== "loading") {
 function onShowMenu(){  
  console.log("onShowMenu");
 	let frame = document.getElementById('playerXXX')
-//	let videos = frame.contentWindow.document.body.getElementsByTagName('video')
-	let menu = document.createElement("div")
+  console.log(frame);
+//	let videos = frame.contentWindow.document.body.getElementsByTagName('video');
+	let menu = document.createElement("div");
+  console.log(menu);
 	menu.style.cssText="position:fixed;top:150px;left:0;width:100%25;padding:10px;background:white;border:1px solid #aaa;text-align:center;z-index:19999;";
+  console.log(menu);
 
 	let value, btn;
 	for(f=4;f<16;f++){
