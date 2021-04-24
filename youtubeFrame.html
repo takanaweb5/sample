@@ -4,11 +4,6 @@
 <meta charset="utf-8">
 <title>YouTube</title>
 <script src="https://www.youtube.com/iframe_api"></script>
-</head>
-
-<body> 
-<div>こんにちは</div>
-<div id="playerXXX"></div>
 <script>
 const origin = location.protocol + "//" + location.hostname + "/";
 //動画IDは、YouTube動画のURL https://www.youtube.com/watch?v=...... の......の部分です
@@ -30,5 +25,10 @@ const player = new YT.Player("playerXXX", {
   },
 });
 </script>
+</head>
+
+<body> 
+<div>こんにちは</div>
+<div id="playerXXX"></div>
 </body>
 </html>
