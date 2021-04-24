@@ -7,7 +7,7 @@
 </head>
 
 <body> 
-<div>こんにちは</div>
+<div><p onclick="onShowMenu()">こんにちは</p></div>
 <div id="playerXXX"></div>
 <script>
 function loadVideo() {
@@ -24,7 +24,8 @@ function loadVideo() {
   })();
 
   let player = null;
-
+  const movieId = "9bGRfBlscFw";
+  
   function setupPlayer() {
     /**
      * Need to wait until Youtube Player is ready!
@@ -36,7 +37,7 @@ function loadVideo() {
       player = new window.YT.Player("playerXXX", {
         height: "390",
         width: "640",
-        videoId: "csrP6E9lUuY",
+        videoId: movieId,
         events: {
           onReady: onPlayerReady,
           onStateChange: onPlayerStateChange
@@ -63,7 +64,37 @@ if (document.readyState !== "loading") {
     console.info(`DOMContentLoaded ==>`, document.readyState);
     loadVideo();
   });
-}
+}  
+
+
+function onShowMenu(){  
+ console.log("onShowMenu");
+	let frame = document.getElementById('playerXXX')
+	let videos = frame.contentWindow.document.body.getElementsByTagName('video')
+	let menu = document.createElement("div")
+	menu.style.cssText="position:fixed;top:150px;left:0;width:100%25;padding:10px;background:white;border:1px solid #aaa;text-align:center;z-index:19999;";
+
+	let value, btn;
+	for(f=4;f<16;f++){
+		value = (f*0.2).toFixed(1);
+		btn = document.createElement("button");
+		btn.type = "button";
+		btn.innerHTML = value;
+		btn.style.cssText="margin:3px;";
+		btn.value = value;
+		btn.onclick = onClick;
+		menu.appendChild(btn);
+	}
+	
+	document.body.appendChild(menu);
+
+	function onClick(b){
+		videos[0].playbackRate = b.target.value;
+		console.log(b.target.value);
+		menu.click();
+	}
+};
+
 </script>
 </body>
 </html>
