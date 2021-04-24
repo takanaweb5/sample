@@ -24,7 +24,9 @@ function loadVideo() {
   })();
 
   let player = null;
+  const origin = location.protocol + "//" + location.hostname + "/";
   const movieId = "9bGRfBlscFw";
+  console.log("origin  " + origin);
   
   function setupPlayer() {
     /**
@@ -38,6 +40,10 @@ function loadVideo() {
         height: "390",
         width: "640",
         videoId: movieId,
+        playerVars: { //各種パラメータ
+          enablejsapi: "1",
+          origin: origin,
+        },
         events: {
           onReady: onPlayerReady,
           onStateChange: onPlayerStateChange
@@ -71,7 +77,7 @@ function onShowMenu(){
  console.log("onShowMenu");
 	let frame = document.getElementById('playerXXX')
   console.log(frame);
-//	let videos = frame.contentWindow.document.body.getElementsByTagName('video');
+	let videos = frame.contentWindow.document.body.getElementsByTagName('video');
 	let menu = document.createElement("div");
   console.log(menu);
 	menu.style.cssText="left:0;width:100%25;padding:10px;background:white;border:1px solid #aaa;z-index:19999;";
