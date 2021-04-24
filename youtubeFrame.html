@@ -8,14 +8,14 @@
 
 <body> 
 <div>こんにちは</div>
-<div id="playerXXX"></div>
+<div id="player"></div>
 <script>
 console.log("123");
 const origin = location.protocol + "//" + location.hostname + "/";
 console.log("234");
 //動画IDは、YouTube動画のURL https://www.youtube.com/watch?v=...... の......の部分です
 const movieId = "csrP6E9lUuY";
-const player = new YT.Player("playerXXX", {
+const player = new YT.Player("player", {
   height: "360",
   width: "640",
   videoId: movieId,
