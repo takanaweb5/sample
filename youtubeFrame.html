@@ -3,33 +3,67 @@
 <head>
 <meta charset="utf-8">
 <title>YouTube</title>
+<script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
 <body> 
 <div>こんにちは</div>
-<div id="player"></div>
-<script src="https://www.youtube.com/iframe_api"></script>
+<div id="playerXXX"></div>
 <script>
-console.log("abc");
-const origin = location.protocol + "//" + location.hostname + "/";
-//動画IDは、YouTube動画のURL https://www.youtube.com/watch?v=...... の......の部分です
-const movieId = "csrP6E9lUuY";
-const player = new YT.Player("player", {
-  height: "360",
-  width: "640",
-  videoId: movieId,
-  playerVars: { //各種パラメータ
-    enablejsapi: "1",
-    origin: origin,
-    modestbranding: "1",
-    fs: "0",
-  },
-  events: {
-    onReady: () => { //プレーヤー生成完了時に発火するイベント
-      player.playVideo(); //動画を再生
-    },
-  },
-});console.log("def");
+function loadVideo() {
+  console.log("loadVideo called");
+
+  (function loadYoutubeIFrameApiScript() {
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+
+    const firstScriptTag = document.getElementsByTagName("script")[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    tag.onload = setupPlayer;
+  })();
+
+  let player = null;
+
+  function setupPlayer() {
+    /**
+     * Need to wait until Youtube Player is ready!
+     *
+     * YT.ready is not documented in https://developers.google.com/youtube/iframe_api_reference
+     * but found from https://codesandbox.io/s/youtube-iframe-api-tpjwj
+     */
+    window.YT.ready(function() {
+      player = new window.YT.Player("playerXXX", {
+        height: "390",
+        width: "640",
+        videoId: "csrP6E9lUuY",
+        events: {
+          onReady: onPlayerReady,
+          onStateChange: onPlayerStateChange
+        }
+      });
+    });
+  }
+
+  function onPlayerReady(event) {
+    event.target.playVideo();
+  }
+
+  function onPlayerStateChange(event) {
+    var videoStatuses = Object.entries(window.YT.PlayerState);
+    console.log(videoStatuses.find(status => status[1] === event.data)[0]);
+  }
+}
+
+if (document.readyState !== "loading") {
+  console.log("document.readyState ==>", document.readyState);
+  loadVideo();
+} else {
+  document.addEventListener("DOMContentLoaded", function() {
+    console.info(`DOMContentLoaded ==>`, document.readyState);
+    loadVideo();
+  });
+}
 </script>
 </body>
 </html>
