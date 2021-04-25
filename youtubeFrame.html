@@ -55,8 +55,8 @@ function loadVideo() {
 
   function onPlayerReady(event) {
     console.log("onPlayerReady");
+    console.log(player.getAvailablePlaybackRates);
     event.target.playVideo();
-    console.log(event.target.getAvailablePlaybackRates);
   }
 
   function onPlayerStateChange(event) {
