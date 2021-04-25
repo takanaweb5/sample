@@ -76,7 +76,8 @@ if (document.readyState !== "loading") {
 
 function onShowMenu(){  
  console.log("onShowMenu");
-	let frame = document.getElementById('playerXXX')
+ console.log(player.getAvailablePlaybackRates);
+ let frame = document.getElementById('playerXXX')
   console.log(frame);
 	let videos = frame.contentWindow.document.body.getElementsByTagName('video');
 	let menu = document.createElement("div");
