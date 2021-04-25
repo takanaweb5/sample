@@ -54,7 +54,9 @@ function loadVideo() {
   }
 
   function onPlayerReady(event) {
+    console.log("onPlayerReady");
     event.target.playVideo();
+    console.log(event.target.getAvailablePlaybackRates);
   }
 
   function onPlayerStateChange(event) {
@@ -76,7 +78,6 @@ if (document.readyState !== "loading") {
 
 function onShowMenu(){  
  console.log("onShowMenu");
- console.log(player.getAvailablePlaybackRates);
  let frame = document.getElementById('playerXXX')
   console.log(frame);
 	let videos = frame.contentWindow.document.body.getElementsByTagName('video');
