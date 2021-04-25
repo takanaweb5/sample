@@ -10,6 +10,8 @@
 <div><p onclick="onShowMenu()">こんにちは</p></div>
 <div id="playerXXX"></div>
 <script>
+let player = null;
+
 function loadVideo() {
   console.log("loadVideo called");
 
@@ -23,7 +25,6 @@ function loadVideo() {
     tag.onload = setupPlayer;
   })();
 
-  let player = null;
 //  const origin = location.protocol + "//" + location.hostname + "/";
   const origin = "https://www.youtube.com/";
   const movieId = "9bGRfBlscFw";
@@ -57,8 +58,8 @@ function loadVideo() {
     console.log("onPlayerReady");
     console.log(player.getAvailablePlaybackRates());
     console.log("onPlayerReady2");
-    player.setPlaybackRate = 2.0;
     event.target.playVideo();
+    console.log("onPlayerReady3");
   }
 
   function onPlayerStateChange(event) {
@@ -103,8 +104,8 @@ function onShowMenu(){
 	document.body.appendChild(menu);
 
 	function onClick(b){
-		videos[0].playbackRate = b.target.value;
-		console.log(b.target.value);
+		player.setPlaybackRate(b.target.value);
+		console.log(player);
 		menu.click();
 	}
 };
