@@ -104,9 +104,12 @@ function onShowMenu(){
 	document.body.appendChild(menu);
 
 	function onClick(b){
-		player.setPlaybackRate(b.target.value);
+		console.log("onClick1");
 		console.log(player);
-		menu.click();
+		console.log("onClick12");
+		console.log(b.target.value);
+		player.setPlaybackRate(b.target.value);
+		// menu.click();
 	}
 };
 
