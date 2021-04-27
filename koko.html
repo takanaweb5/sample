@@ -5,7 +5,7 @@
     position: relative;
 }
 .video-btn {
-    content: "";
+    content: "速度変更";
     position: absolute;
     top:0;
     left:0;
@@ -27,7 +27,7 @@ const video = document.querySelector('#video');
 const video_btn = document.querySelector('#video-btn');
 let is_playing = false;
 video_btn.addEventListener('click', () => {
-    video.playbackRate += 0.1;
-    }
+    video.playbackRate += 0.25;
+    alert(video.playbackRate);
 });    
 </script>
