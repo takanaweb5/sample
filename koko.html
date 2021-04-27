@@ -4,30 +4,28 @@
 .video-wrap {
     position: relative;
 }
-.video-btn {
-    content: "速度変更";
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:120px; /*コントローラー分下部に余白を*/
-    cursor: pointer;
-}
 </style>
 </head>
 <body>
+    <button class="video-btn" id="video-btn1" style="display: inline-block">＜速度</button>
+    <div class="video-btn" id="speed" style="display: inline-block">速度</div>
+    <button class="video-btn" id="video-btn2" style="display: inline-block">速度＞</button>
 <div class="video-wrap">
     <video controls="" poster="https://i.ytimg.com/vi/2aMYsslNYUM/hq720_live.jpg?sqp=CIzpn4QG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD-Zxkh8XiCoSy6FocxEqZnKRtNkw" id="video">
         <source  type="video/mp4" src="https://r4---sn-3pm7dn7y.googlevideo.com/videoplayback?expire=1619544464&ei=MPWHYIiTB6SplQSUyY3wAQ&ip=2404%3A7a84%3A5180%3Aee00%3Acd27%3A1520%3A6da0%3A2f14&id=o-AAzXXK9J1wQHPa84a0DQJt_FegB61S49_Un1HZHwMJtS&itag=18&source=youtube&requiressl=yes&mh=ij&mm=31%2C26&mn=sn-3pm7dn7y%2Csn-ogueln7r&ms=au%2Conr&mv=m&mvi=4&pl=32&ctier=A&pfa=5&initcwndbps=1305000&hightc=yes&vprv=1&mime=video%2Fmp4&ns=KavzRhGQ3Dy9snKJNBlJRoMF&gir=yes&clen=179402897&ratebypass=yes&dur=3715.912&lmt=1578371876047387&mt=1619522678&fvip=4&fexp=24001373%2C24007246&c=WEB&txp=5531432&n=_duAjz4fvDxOG5RnxF&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cctier%2Cpfa%2Chightc%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAMiz9BIU95CUDdBiP_5MidgZXBOhWeD8ZPIErz9riYcMAiEAvGOk1Or3eMCQO6I6upiHCh2gFNYTOrit8H6n3fPtGcU%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAInKXrEFCmBR7xk8z49kVK3wauXICv27ZiVugt6I2eWDAiALDwWmy8C4JSFA9EMJxhDFHmxJPEDPHrVKHw589ioqSg%3D%3D"/>
     </video>
-    <div class="video-btn" id="video-btn"></div>
 </div>
 <script>
 const video = document.querySelector('#video');
-const video_btn = document.querySelector('#video-btn');
-let is_playing = false;
-video_btn.addEventListener('click', () => {
-    video.playbackRate += 0.25;
-    alert(video.playbackRate);
+const video_btn1 = document.querySelector('#video-btn1');
+const video_btn2 = document.querySelector('#video-btn2');
+const speed = document.getElementById('speed')
+video_btn1.addEventListener('click', () => {
+    video.playbackRate -= 0.1;
+    speed.innerText = Math.round(video.playbackRate*10)/10;
+});
+video_btn2.addEventListener('click', () => {
+    video.playbackRate += 0.1;
+    speed.innerText = Math.round(video.playbackRate*10)/10;
 });    
 </script>
