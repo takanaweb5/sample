@@ -27,12 +27,7 @@ const video = document.querySelector('#video');
 const video_btn = document.querySelector('#video-btn');
 let is_playing = false;
 video_btn.addEventListener('click', () => {
-    if (!is_playing) {
-        alert("TRUE");
-    is_playing = true;
-    } else {
-        alert("false");
-    is_playing = false;
+    video.playbackRate += 0.1;
     }
 });    
 </script>
