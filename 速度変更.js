@@ -8,7 +8,7 @@ javascript: (function(d) {
 	  for (let i=0,len=fms.length; i<len; i++){
 		  console.log(`${fms[i].url}\n\n`);
 		}
-		const targ = window.prompt(msg, 0);
+		const targ = window.prompt(msg, 1);
 	if (!targ){
 	  return
 	} else if (!targ.match(/^\d+$/) || targ >= fms.length){
