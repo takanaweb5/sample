@@ -1,4 +1,8 @@
 javascript: (function(d) {
+	if (window.confirm('ページのリロードを実行しますか？')) {
+		location.reload();
+		return
+	}	
 	const title = ytInitialPlayerResponse.videoDetails.title;
 	const fms = ytInitialPlayerResponse.streamingData.formats;
 	let msg = `${title}\nDL対象をindexで指定してください\n`;
@@ -17,7 +21,7 @@ javascript: (function(d) {
 	}
 
 	const copyListener = event => {
-		document.removeEventListener("copy", copyListener, true);
+		d.removeEventListener("copy", copyListener, true);
 		event.preventDefault();
 		const clipboardData = event.clipboardData;
 		clipboardData.clearData();
@@ -26,7 +30,7 @@ javascript: (function(d) {
 			s=>{return String.fromCharCode(s.charCodeAt(0)+0xFEE0)});
 		clipboardData.setData("text/plain", filename);
 	};
-	document.addEventListener("copy", copyListener, true);document.execCommand("copy");
+	d.addEventListener("copy", copyListener, true);document.execCommand("copy");
 
 	window.open(fms[targ].url);
 })(document);
