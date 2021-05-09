@@ -3,30 +3,47 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <title>Sample</title>
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+<link href="https://vjs.zencdn.net/7.10.2/vjs-time-divider" rel="stylesheet" />
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 <script>
     // const url ='file://ls-chl95/share/Disney/youtube/Peppa%20Pig%20-%20Official%20Channel(2020-01-03)Peppa%20Pig%20Official%20Channel%20%EF%BD%9C%20Peppa%20Pig%20Plays%20with%20Penguins%20at%20the%20South%20Pole%20.mp4';
     let player;
     // window.onload = function() {
     onOpen = function() {
-        //1.0～5.0まで0.2きざみの配列を作成
         const url =document.getElementById("url").value;
+        //1.0～5.0まで0.2きざみの配列を作成
         const rates = [...Array(21)].map((_, i) => (1 + i*0.2).toFixed(1));
         player = videojs('my-player', { playbackRates: rates,
             sources: [{
             src: url,
             type: 'video/mp4'
-        }]});
-    };
+         }],
+         controlBar: {
+            progressControl: {
+                keepTooltipsInside: true
+            }
+        }
+        // controlBar: {
+        //     CurrentTimeDisplay: true, 
+        //     TimeDivider: true,
+        //     DurationDisplay: true,
+        //     // muteToggle: true,
+        //     volumePanel: {
+        //         inline: false
+        // }
+//   }
+})}
 </script>
 </head>
 <body>
     <button type="button" onClick="onOpen()">開く</button>
     <textarea id="url"></textarea>
-    <video id="my-player" class="video-js" controls preload="auto" 
+    <video id="my-player" class="video-js vjs-big-play-centered" controls preload="auto" 
         width="640"
         height="300"
         >
     </video>
 </body>
 </html>
+
+
