@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>Sample</title>
+<link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+<script>
+    window.onload = function() {
+    // .addEventListener('load',function() {
+        //1.0～5.0まで0.2きざみの配列を作成
+        const rates = [...Array(21)].map((_, i) => (1 + i*0.2).toFixed(1));
+        const player = videojs('my-player', { playbackRates: rates,
+        sources: [{
+            src: 'https://r2---sn-3pm7dn7y.googlevideo.com/videoplayback?expire=1620538539&ei=SyCXYM-pKJHPqAG497nIBg&ip=2404%3A7a84%3A5180%3Aee00%3Acd27%3A1520%3A6da0%3A2f14&id=o-AJxRys-UhTbnigI7vSOXYlpYpKJ12TjuhBd7C323NYmu&itag=22&source=youtube&requiressl=yes&mh=GE&mm=31%2C26&mn=sn-3pm7dn7y%2Csn-oguelner&ms=au%2Conr&mv=m&mvi=2&pl=30&ctier=A&pfa=5&initcwndbps=2177500&hightc=yes&vprv=1&mime=video%2Fmp4&ns=SZ0f8LjR9inxISGeJLtqDTQF&cnr=14&ratebypass=yes&dur=845.392&lmt=1620336767252439&mt=1620516520&fvip=2&fexp=24001373%2C24007246&c=WEB&txp=5532434&n=gDliIcFcNXBfWNS9aMv&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cctier%2Cpfa%2Chightc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgfiW0g111rW6YCB7rtKMqNfHJM_6C7PEUxZ1PHbvhHaUCIQCz45FgYEOOt16EAClR_6GREtFQIDpSxMcnQDJGeUyuaw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAMaIwxazFdR4Ry_PrOaDWFgMI-esfTlVVzUZl8nM_FWyAiEAuNBnJWjRY-jFaiHXF4Dd47pltauXH_8IHnv1cqBgpXc%3D',
+            type: 'video/mp4'
+        }]});
+    };
+    function onOpen() {
+        //1.0～5.0まで0.2きざみの配列を作成
+        const rates = [...Array(2)].map((_, i) => (1 + i*0.2).toFixed(1));
+        const player = videojs('my-player', { playbackRates: rates,
+        sources: [{
+            src: 'https://r2---sn-3pm7dn7y.googlevideo.com/videoplayback?expire=1620538539&ei=SyCXYM-pKJHPqAG497nIBg&ip=2404%3A7a84%3A5180%3Aee00%3Acd27%3A1520%3A6da0%3A2f14&id=o-AJxRys-UhTbnigI7vSOXYlpYpKJ12TjuhBd7C323NYmu&itag=22&source=youtube&requiressl=yes&mh=GE&mm=31%2C26&mn=sn-3pm7dn7y%2Csn-oguelner&ms=au%2Conr&mv=m&mvi=2&pl=30&ctier=A&pfa=5&initcwndbps=2177500&hightc=yes&vprv=1&mime=video%2Fmp4&ns=SZ0f8LjR9inxISGeJLtqDTQF&cnr=14&ratebypass=yes&dur=845.392&lmt=1620336767252439&mt=1620516520&fvip=2&fexp=24001373%2C24007246&c=WEB&txp=5532434&n=gDliIcFcNXBfWNS9aMv&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cctier%2Cpfa%2Chightc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgfiW0g111rW6YCB7rtKMqNfHJM_6C7PEUxZ1PHbvhHaUCIQCz45FgYEOOt16EAClR_6GREtFQIDpSxMcnQDJGeUyuaw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAMaIwxazFdR4Ry_PrOaDWFgMI-esfTlVVzUZl8nM_FWyAiEAuNBnJWjRY-jFaiHXF4Dd47pltauXH_8IHnv1cqBgpXc%3D',
+            type: 'video/mp4'
+        }]});
+    };
+</script>
+</head>
+<body>
+    <input type="button" value="最小化" onClick="miniWin()">
+    <button type="button" onClick="onOpen()">開く</button>
+    <video id="my-player" class="video-js vjs-theme-city vjs-playback-rate" controls preload="auto" 
+        width="640"
+        height="300"
+        data-setup="{}">
+    </video>
+</body>
+</html>
