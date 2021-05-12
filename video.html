@@ -70,25 +70,32 @@
         // player.appendChild(d1);
 
         var btnSlow = document.createElement("button");
-        btnSlow.style.cssText = "margin-right:12px;font-size:100%;";
+        // btnSlow.style.cssText = "margin-right:12px;font-size:100%;";
         btnSlow.innerHTML = "<<";
         btnSlow.name = "slow";
         btnSlow.onclick = changeRate;
-        player.getChild("controlBar").el().appendChild(btnSlow);    
+        // player.getChild("controlBar").el().appendChild(btnSlow);    
 
         var btnfast = document.createElement("button");
-        btnfast.style.cssText = "margin-right:12px;font-size:100%;";
+        var a = player.getChild("controlBar").el().style.csstext;
+        console.log(a);
         btnfast.innerHTML = ">>";
         btnfast.onclick = changeRate;
         btnfast.name = "fast";
-        player.getChild("controlBar").el().appendChild(btnfast);    
+        // player.getChild("controlBar").el().appendChild(btnfast);    
     
         var txtSpeed = document.createElement("text");
-        txtSpeed.style.cssText = "margin-right:12px;font-size:100%;";
+        // txtSpeed.style.cssText = "margin-right:12px;font-size:100%;";
         txtSpeed.innerText = "1.0x";
         txtSpeed.id = "speed";
-        player.getChild("controlBar").el().appendChild(txtSpeed);    
+        // player.getChild("controlBar").el().appendChild(txtSpeed);    
 
+        let Component = videojs.getComponent('Component');
+        let com = new Component(player);
+        com.el().appendChild(btnSlow);
+        com.el().appendChild(txtSpeed);
+        com.el().appendChild(btnfast);
+        player.getChild("controlBar").addChild(com,{},1);
     }
 // https://codepen.io/jiyangg/pen/YEJdvY
 
