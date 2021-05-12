@@ -3,7 +3,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <title>Sample</title>
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
-<link href="https://vjs.zencdn.net/7.10.2/vjs-time-divider" rel="stylesheet" />
+<!-- <link href="https://vjs.zencdn.net/7.10.2/vjs-time-divider" rel="stylesheet" /> -->
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/6.3.3/video.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.12.2/videojs-contrib-hls.min.js"></script> -->
@@ -12,11 +12,20 @@
     const url ='file://ls-chl95/share/Disney/youtube/Peppa%20Pig%20-%20Official%20Channel(2020-01-03)Peppa%20Pig%20Official%20Channel%20%EF%BD%9C%20Peppa%20Pig%20Plays%20with%20Penguins%20at%20the%20South%20Pole%20.mp4';
     let player;
     // window.onload = function() {
+    changeRate = function(e) {
+        let rate = 0.1;
+        if (e.currentTarget.name == 'slow') {
+            rate = -rate;
+        }
+
+        document.getElementsByTagName('video')[0].playbackRate = 
+            (document.getElementsByTagName('video')[0].playbackRate+rate).toFixed(1);
+    };
     onOpen = function() {
         
         // const url =document.getElementById("url").value;
         //1.0～5.0まで0.2きざみの配列を作成
-        const rates = [...Array(21)].map((_, i) => (1 + i*0.2).toFixed(1));
+        const rates = [...Array(1)].map((_, i) => (1 + i*0.2).toFixed(1));
         player = videojs('my-player', { playbackRates: rates,
             sources: [{
             src: url,
@@ -53,17 +62,33 @@
         VjsButton.registerComponent('MySepcialButton', MySepcialButton);
         // (optionally) add the new component as a default player child
         // player.addChild('MySepcialButton');
-        player.getChild("controlBar").addChild("MySepcialButton", {});    
+        // player.getChild("controlBar").addChild("MySepcialButton", {}, 11);
 
         // var d1 = document.createElement("text");
         // d1.style.cssText = "margin-right:12px;font-size:150%;";
         // d1.innerHTML = "速度:";
         // player.appendChild(d1);
 
-        // var d2 = document.createElement("text");
-        // d2.style.cssText = "margin-right:12px;font-size:150%;";
-        // d2.innerHTML = "速度:";
-        // player.getChild("controlBar").appendChild(d2);    
+        var btnSlow = document.createElement("button");
+        btnSlow.style.cssText = "margin-right:12px;font-size:100%;";
+        btnSlow.innerHTML = "<<";
+        btnSlow.name = "slow";
+        btnSlow.onclick = changeRate;
+        player.getChild("controlBar").el().appendChild(btnSlow);    
+
+        var btnfast = document.createElement("button");
+        btnfast.style.cssText = "margin-right:12px;font-size:100%;";
+        btnfast.innerHTML = ">>";
+        btnfast.onclick = changeRate;
+        btnfast.name = "fast";
+        player.getChild("controlBar").el().appendChild(btnfast);    
+    
+        var txtSpeed = document.createElement("text");
+        txtSpeed.style.cssText = "margin-right:12px;font-size:100%;";
+        txtSpeed.innerText = "1.0x";
+        txtSpeed.id = "speed";
+        player.getChild("controlBar").el().appendChild(txtSpeed);    
+
     }
 // https://codepen.io/jiyangg/pen/YEJdvY
 
