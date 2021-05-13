@@ -25,7 +25,8 @@
         
         // const url =document.getElementById("url").value;
         //1.0～5.0まで0.2きざみの配列を作成
-        const rates = [...Array(1)].map((_, i) => (1 + i*0.2).toFixed(1));
+        // const rates = [...Array(1)].map((_, i) => (1 + i*0.2).toFixed(1));
+        const rates = [1.0];
         player = videojs('my-player', { playbackRates: rates,
             sources: [{
             src: url,
@@ -74,28 +75,50 @@
         btnSlow.innerHTML = "<<";
         btnSlow.name = "slow";
         btnSlow.onclick = changeRate;
-        // player.getChild("controlBar").el().appendChild(btnSlow);    
+        player.getChild("controlBar").el().appendChild(btnSlow);    
 
         var btnfast = document.createElement("button");
-        var a = player.getChild("controlBar").el().style.csstext;
-        console.log(a);
+        // var a = player.getChild("controlBar").el().style.csstext;
+        // console.log(a);
         btnfast.innerHTML = ">>";
         btnfast.onclick = changeRate;
         btnfast.name = "fast";
-        // player.getChild("controlBar").el().appendChild(btnfast);    
+        player.getChild("controlBar").el().appendChild(btnfast);    
     
-        var txtSpeed = document.createElement("text");
-        // txtSpeed.style.cssText = "margin-right:12px;font-size:100%;";
+        var txtSpeed = document.createElement("button");
+        txtSpeed.style.cssText = "margin-right:12px;font-size:100%;";
         txtSpeed.innerText = "1.0x";
         txtSpeed.id = "speed";
         // player.getChild("controlBar").el().appendChild(txtSpeed);    
 
-        let Component = videojs.getComponent('Component');
+        // let Component = videojs.getComponent('Component');
+        let Component = videojs.getComponent('button');
+        let com1 = new Component(player);
+        com1.el().appendChild(btnSlow);
+        player.getChild("controlBar").addChild(com1,{},9);
+    
+        // let com2 = new Component(player);
+        // com2.el().appendChild(txtSpeed);
+        // player.getChild("controlBar").addChild(com2,{});
+    
+        let com3 = new Component(player);
+        com3.el().appendChild(btnfast);
+        player.getChild("controlBar").addChild(com3,{},12);
+
+        // com.el().appendChild(btnSlow);
+        // com.el().appendChild(txtSpeed);
+        // com.el().appendChild(btnfast);
+
         let com = new Component(player);
-        com.el().appendChild(btnSlow);
-        com.el().appendChild(txtSpeed);
-        com.el().appendChild(btnfast);
-        player.getChild("controlBar").addChild(com,{},1);
+        com.el().innerHTML = `
+<button name="slow" onClick="changeRate()" name="slow">&lt;&lt;</button>
+<div class="vjs-playback-rate-value">1x</div>
+<button name="fast" onClick="changeRate()" name="slow"">&gt;&gt;</button>
+`
+
+        // player.getChild("controlBar").addChild(com,{},9);
+        console.log(player.el().innerHTML);
+        // console.log(player.getChild("controlBar").el().innerHTML);
     }
 // https://codepen.io/jiyangg/pen/YEJdvY
 
