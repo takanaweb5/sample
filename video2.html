@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>Sample</title>
+<link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+<style type="text/css">
+    <!--
+        .video-js{
+        font-size: 14px;
+        }
+    
+        .video-js .vjs-big-play-button{ 
+        font-size: 2.5em;
+        line-height: 2.3em;
+        height: 2.5em;
+        width: 2.5em;
+        -webkit-border-radius: 2.5em;
+        -moz-border-radius: 2.5em;
+        border-radius: 2.5em;
+        background-color: rgba(115,133,159,.5);
+        border-width: 0.12em;
+        margin-top: -1.25em;
+        margin-left: -1.75em;
+        }
+
+        .video-js.vjs-paused .vjs-big-play-button{ 
+        display: block;
+        }
+        .video-js.vjs-error .vjs-big-play-button{
+        display: none;
+        }
+        .video-js .vjs-control-bar{ 
+        display: flex;
+        }
+
+        .video-js .vjs-time-control{
+        line-height: 2.4;
+        font-size: 18px;
+        display:block;
+        }
+        .video-js .vjs-playback-rate .vjs-playback-rate-value{
+        line-height: 2.4;
+        font-size: 18px;
+        }
+    --> 
+    </style>
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+<script>
+const url ='file:///Z:/aaa.mp4';
+let player;
+onLoad = function() {
+    player = videojs('my-player', { 
+        controls: true, // Whether to show the control bar
+        preload: 'auto',
+        autoplay: false,
+        // fluid: true, // Adaptive Width and Height
+        muted: false, // Mute or not
+        /* inactivityTimeout: false, */
+        controlBar: { // Set Control Bar Component
+        /* Set the properties and display of the components in the control bar
+        'currentTimeDisplay':true,
+        'timeDivider':true,
+        'durationDisplay':true,
+        'remainingTimeDisplay':false,
+        volumePanel: {
+        inline: false,
+        }
+        */
+        /* The children form allows you to control the position and display of each control */
+        children: [
+        {name: 'playToggle'},         // Play button
+        {name: 'volumePanel', // Volume control
+               inline: true, // Do not use horizontal mode
+        },
+        {name: 'progressControl'},    // Play progress bar
+        {name: 'currentTimeDisplay'}, // Current Played Time
+        {name: 'TimeDivider'},        // '/''
+        {name: 'durationDisplay'},    // Total Time
+        {name: 'playbackRateMenuButton',
+               playbackRates: [0.5, 1, 1.5, 2, 2.5]
+        },
+        {name: 'FullscreenToggle'}, // Full screen
+        ]
+    },
+    // sources:[ // Video Source
+    //     {
+    //         src: url,
+    //         type: 'video/mp4',
+    //     }
+    // ]
+    }, function (){
+        //   console.log('The video is ready to play',this);
+        //   var lll = player.getChild("controlBar").getChild("currentTimeDisplay");
+        // //   console.log(lll.show);
+        //   lll.show;
+        //   console.log(lll.hide());
+        // //   lll.el().style.width = 100;
+        //   lll.el().style.height = 100;
+          
+        //   console.log(lll.currentHeight());
+        //   console.log(lll.currentWidth());
+});
+    // var l = player.getChild("controlBar").getChild("currentTimeDisplay");
+    // console.log(l);
+
+// 参考
+// https://programmer.help/blogs/record-the-use-and-problems-of-a-wave-of-video.js.html
+}
+window.onload = onLoad;
+
+onOpen = function() {
+    var data = 
+        {
+            src: url,
+            type: 'video/mp4',
+        };
+  player.pause();
+  player.src(data);
+  player.load(data);
+}
+</script>
+</head>
+<body>
+    <button type="button" onClick="onOpen()">開く</button>
+    <button type="button" onClick="onClick()">テスト</button>
+    <textarea id="url"></textarea>
+    <video id="my-player" class="video-js vjs-big-play-centered" 
+        width="800"
+        height="450"
+        >
+    </video>
+</body>
+</html>
+
+
