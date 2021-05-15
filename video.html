@@ -3,40 +3,29 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <title>Sample</title>
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
-<!-- <link href="https://vjs.zencdn.net/7.10.2/vjs-time-divider" rel="stylesheet" /> -->
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/6.3.3/video.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.12.2/videojs-contrib-hls.min.js"></script> -->
 <script>
-    var MySepcialButton;
     const url ='file://ls-chl95/share/Disney/youtube/Peppa%20Pig%20-%20Official%20Channel(2020-01-03)Peppa%20Pig%20Official%20Channel%20%EF%BD%9C%20Peppa%20Pig%20Plays%20with%20Penguins%20at%20the%20South%20Pole%20.mp4';
     let player;
     // window.onload = function() {
-    changeRate = function(e) {
-        let rate = 0.1;
-        if (e.currentTarget.name == 'slow') {
-            rate = -rate;
-        }
-
-        document.getElementsByTagName('video')[0].playbackRate = 
-            (document.getElementsByTagName('video')[0].playbackRate+rate).toFixed(1);
+    changeRate = function(rate) {
+        const newRate = (player.playbackRate() + rate).toFixed(1);
+        player.playbackRate(newRate);
     };
     onOpen = function() {
-        
-        // const url =document.getElementById("url").value;
-        //1.0～5.0まで0.2きざみの配列を作成
-        // const rates = [...Array(1)].map((_, i) => (1 + i*0.2).toFixed(1));
-        const rates = [1.0];
-        player = videojs('my-player', { playbackRates: rates,
+        player = videojs('my-player', { 
+            playbackRates: [1.0],
             sources: [{
-            src: url,
-            type: 'video/mp4'
-         }],
-         controlBar: {
-            progressControl: {
-                keepTooltipsInside: true
-            }
-        }
+                src: url,
+                type: 'video/mp4'
+            }],
+            // controlBar: {
+            //     progressControl: {
+            //         keepTooltipsInside: true,
+            //         PictureInPictureToggle: false,
+            //         FullScreen: false
+            //     },
+        // }
         // controlBar: {
         //     CurrentTimeDisplay: true, 
         //     TimeDivider: true,
@@ -47,79 +36,46 @@
         // }
 //   }
         });
-        // Get a component to subclass
-        var VjsButton = videojs.getComponent('Button');
-        // Subclass the component (see 'extend' doc for more info)
-        MySepcialButton = videojs.extend(VjsButton, {    constructor: function(player) {
-      videojs.getComponent("Button").apply(this, arguments);
-      this.controlText("Rotate");
-      this.player = player;
-    },
-    handleClick: function() {
-        document.getElementsByTagName('video')[0].playbackRate += 0.1;
-    }
-});
-        // Register the new component
-        VjsButton.registerComponent('MySepcialButton', MySepcialButton);
-        // (optionally) add the new component as a default player child
-        // player.addChild('MySepcialButton');
-        // player.getChild("controlBar").addChild("MySepcialButton", {}, 11);
 
-        // var d1 = document.createElement("text");
-        // d1.style.cssText = "margin-right:12px;font-size:150%;";
-        // d1.innerHTML = "速度:";
-        // player.appendChild(d1);
-
+        const cssText = `
+            display: inline-block;
+            vertical-align: middle; 
+            font-size: 150%;  
+        `
         var btnSlow = document.createElement("button");
-        // btnSlow.style.cssText = "margin-right:12px;font-size:100%;";
-        btnSlow.innerHTML = "<<";
-        btnSlow.name = "slow";
-        btnSlow.onclick = changeRate;
+        btnSlow.innerHTML = "◀";
+        btnSlow.setAttribute("onclick", "changeRate(-0.1)"); 
+        btnSlow.style.cssText = cssText; 
         player.getChild("controlBar").el().appendChild(btnSlow);    
 
         var btnfast = document.createElement("button");
-        // var a = player.getChild("controlBar").el().style.csstext;
-        // console.log(a);
-        btnfast.innerHTML = ">>";
-        btnfast.onclick = changeRate;
-        btnfast.name = "fast";
+        btnfast.innerHTML = "▶";
+        btnfast.setAttribute("onclick", "changeRate(+0.1)"); 
+        btnfast.style.cssText = cssText; 
         player.getChild("controlBar").el().appendChild(btnfast);    
     
-        var txtSpeed = document.createElement("button");
-        txtSpeed.style.cssText = "margin-right:12px;font-size:100%;";
-        txtSpeed.innerText = "1.0x";
-        txtSpeed.id = "speed";
-        // player.getChild("controlBar").el().appendChild(txtSpeed);    
-
-        // let Component = videojs.getComponent('Component');
         let Component = videojs.getComponent('button');
-        let com1 = new Component(player);
-        com1.el().appendChild(btnSlow);
-        player.getChild("controlBar").addChild(com1,{},9);
-    
-        // let com2 = new Component(player);
-        // com2.el().appendChild(txtSpeed);
-        // player.getChild("controlBar").addChild(com2,{});
-    
-        let com3 = new Component(player);
-        com3.el().appendChild(btnfast);
-        player.getChild("controlBar").addChild(com3,{},12);
+        let com =Array(2);
 
+        com[0] = new Component(player);
+        com[0].el().appendChild(btnSlow);
+        player.getChild("controlBar").addChild(com[0], {}, 10);
+       com[1] = new Component(player);
+        com[1].el().appendChild(btnfast);
+        player.getChild("controlBar").addChild(com[1], {}, 12);
+
+        // let com = new Component(player);
         // com.el().appendChild(btnSlow);
         // com.el().appendChild(txtSpeed);
         // com.el().appendChild(btnfast);
 
-        let com = new Component(player);
-        com.el().innerHTML = `
-<button name="slow" onClick="changeRate()" name="slow">&lt;&lt;</button>
-<div class="vjs-playback-rate-value">1x</div>
-<button name="fast" onClick="changeRate()" name="slow"">&gt;&gt;</button>
-`
+//         com.el().innerHTML = `
+// <button name="slow" onClick="changeRate(-0.1)" name="slow" style="display:inline-block; vertical-align: middle; font-size: 150%" >&lt;&lt;</button>
+// <div class="vjs-playback-rate-value" style="display:inline-block; vertical-align: middle; font-size: 150%;" >1x</div>
+// <button name="fast" onClick="changeRate(+0.1)" name="slow" style="display:inline-block; vertical-align: text-bottom; font-size: 150%" >&gt;&gt;</button>
+// `
 
-        // player.getChild("controlBar").addChild(com,{},9);
-        console.log(player.el().innerHTML);
-        // console.log(player.getChild("controlBar").el().innerHTML);
-    }
+}
 // https://codepen.io/jiyangg/pen/YEJdvY
 
 </script>
@@ -129,8 +85,8 @@
     <button type="button" onClick="onClick()">テスト</button>
     <textarea id="url"></textarea>
     <video id="my-player" class="video-js vjs-big-play-centered" controls preload="auto" 
-        width="640"
-        height="300"
+        width="800"
+        height="450"
         >
     </video>
 </body>
