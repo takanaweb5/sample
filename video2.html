@@ -45,12 +45,12 @@
     }
 
     .video-js .vjs-time-control{
-        display:inline;
-        padding-left: 0px;
-        padding-right: 0px;
+        display:none;
+        /* padding-left: 0px;
+        padding-right: 0px; */
     }
 
-    .video-js .vjs-time-control span{
+    /* .video-js .vjs-time-control span{
         vertical-align: center;
         font-size: 17px;
     }
@@ -61,18 +61,22 @@
     .video-js .vjs-playback-rate .vjs-playback-rate-value{
     line-height: 2.4;
     font-size: 17px;
-    }
+    } */
 
-    .changeRate {
+    /* .changeRate {
         padding-left: 20px;
+    } */
+
+    .timeValue button{
+        display:inline;
+        vertical-align: center;
+        padding-left: 0px;
+        padding-right: 0px;
+        line-height: 2.4;
+        font-size: 17px;
     }
 
-    .changeRate .ratevalue{
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .changeRate *{
+    .changeRate button{
         display:inline;
         vertical-align: center;
         padding-left: 0px;
@@ -144,20 +148,41 @@ onLoad = function() {
     // console.log(l);
 
     let Component = videojs.getComponent('Component');
+
     let rateSpeed = new Component(player);
     rateSpeed.el().innerHTML = `
 <div class="changeRate">
-<button name="slow" onClick="changeRate(-0.1)" name="slow">◀</button>
-<span class="ratevalue" name="ratevalue">1x</span>
-<button name="fast" onClick="changeRate(+0.1)" name="slow">▶</button>
+<button onClick="changeRate(-0.1)" >&emsp;◀</button>
+<button onClick="setRate(1.0)" class="ratevalue" id="ratevalue">1.0x</button>
+<button onClick="changeRate(+0.1)" >▶&emsp;</button>
 </div>
 `
     player.getChild("controlBar").addChild(rateSpeed, {}, 6);
 
-    player.ratechange = function(){
-        console.log("123");
-    };
+    let currentTime = new Component(player);
+    currentTime.el().innerHTML = `
+<div class="timeValue">
+<button id=time>&nbsp;--:--</button>
+<button>&thinsp;/&thinsp;</button>
+<button id="duration">--:--</button>
+</div>
+`
 
+    player.getChild("controlBar").addChild(currentTime, {}, 6);
+
+    player.on("ratechange",function(){
+        const ratevalue = document.getElementById("ratevalue");
+        ratevalue.innerHTML = (player.playbackRate()).toFixed(1) + 'x'; 
+    });
+    player.on("timeupdate",function(){
+        const time = document.getElementById("time");
+        time.innerHTML = '&nbsp;' + numToTime(player.currentTime()); 
+    });
+
+    player.on("canplay",function(){
+        const duration = document.getElementById("duration");
+        duration.innerHTML = numToTime(player.duration()); 
+    });
 
 // 参考
 // https://programmer.help/blogs/record-the-use-and-problems-of-a-wave-of-video.js.html
@@ -178,6 +203,24 @@ changeRate = function(rate) {
     const newRate = (player.playbackRate() + rate).toFixed(1);
     player.playbackRate(newRate);
 };
+
+setRate = function(rate) {
+    player.playbackRate(rate);
+};
+
+function numToTime(num) {
+    const h = Math.floor(num % (24 * 60 * 60) / (60 * 60));
+    const m = Math.floor(num % (24 * 60 * 60) % (60 * 60) / 60);
+    const s = Math.floor(num % (24 * 60 * 60) % (60 * 60) % 60);
+    const ss = ( '00' + s ).slice( -2 );
+    const mm = ( '00' + m ).slice( -2 );
+
+    if (h==0) {
+        return m + ':' + ss;
+    }
+    return h + ':' + mm + ':' + ss;
+}
+
 
 </script>
 </head>
