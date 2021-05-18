@@ -131,6 +131,49 @@
         line-height: 2.4;
         font-size: 17px;
     }
+
+/* ○ */
+.skip {
+    display:flex;
+	content: "10";
+	font-size: 20px;
+	position: relative;
+	margin: 0.2em auto 0;
+	width: 1.2em;
+	height: 1.2em;
+	border-top: 0.1em solid #39a9d6;
+	border-left: 0.1em solid #39a9d6;
+	border-right: 0.1em solid transparent;
+	border-bottom: 0.1em solid #39a9d6;
+	border-radius: 100% 100% 100% 100%;
+/* 	transform: rotate(-45deg); */
+}
+
+/* △ */
+.skip::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0.9em;
+	width: 0;
+	height: 0;
+	border-top: 0.25em solid transparent;
+	border-left: 0.5em solid #39a9d6;
+	border-bottom: 0.25em solid transparent;
+	transform: rotate(45deg);
+}
+
+.num:before {
+	font-size: 70%;
+	content: "10";
+	position: absolute;
+	top: 15%;
+	left: 15%;
+	width: 0;
+	height: 0;
+}
+
+
 --> 
 </style>
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
@@ -211,11 +254,12 @@ onLoad = function() {
 <div class="timeValue">
 <button id=time>&nbsp;--:--</button>
 <button>&thinsp;/&thinsp;</button>
+<div class="skip"><div class="num"></div></div>
 <button id="duration">--:--</button>
 </div>
 `
 
-    /* player.getChild("controlBar").addChild(currentTime, {}, 6); */
+    player.getChild("controlBar").addChild(currentTime, {}, 6);
 
     player.on("ratechange",function(){
         const ratevalue = document.getElementById("ratevalue");
