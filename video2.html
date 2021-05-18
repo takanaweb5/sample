@@ -9,7 +9,54 @@
     font-size: 14px;
     }
 
-    .video-js .vjs-big-play-button{ 
+    .video-js .vjs-load-progress div,.vjs-seeking .vjs-big-play-button,.vjs-waiting .vjs-big-play-button {
+    display: none!important
+    }
+    .video-js .vjs-play-progress:before,.video-js .vjs-progress-control .vjs-play-progress:before,.video-js .vjs-remaining-time,.video-js .vjs-volume-level:after,.video-js .vjs-volume-level:before,.video-js.vjs-live .vjs-time-control.vjs-current-time,.video-js.vjs-live .vjs-time-control.vjs-duration,.video-js.vjs-live .vjs-time-control.vjs-time-divider,.video-js.vjs-no-flex .vjs-time-control.vjs-remaining-time {
+    display: none
+    }
+
+.video-js .vjs-progress-control {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: .5em;
+    top: -.5em
+}
+
+.video-js .vjs-progress-control .vjs-load-progress,.video-js .vjs-progress-control .vjs-play-progress,.video-js .vjs-progress-control .vjs-progress-holder {
+    height: 100%
+}
+
+.video-js .vjs-progress-control .vjs-progress-holder {
+    margin: 0
+}
+
+.video-js .vjs-progress-control:hover {
+    height: 1.2em;
+    top: -1.2em
+}
+
+.video-js .vjs-control-bar {
+    background-color: rgba(0,0,0,0.3) !important;
+    color: #ffffff;
+}
+
+.video-js .vjs-play-progress {
+    background-color: #cc181e
+}
+
+.video-js .vjs-load-progress {
+    background: rgba(255,255,255,0.3);
+}
+
+.video-js .vjs-fullscreen-control {
+    position: absolute;
+    right: 10px;
+}
+
+.video-js .vjs-big-play-button{ 
     font-size: 2.5em;
     line-height: 2.3em;
     height: 2.5em;
@@ -45,12 +92,12 @@
     }
 
     .video-js .vjs-time-control{
-        display:none;
-        /* padding-left: 0px;
-        padding-right: 0px; */
+        display:inline;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 
-    /* .video-js .vjs-time-control span{
+    .video-js .vjs-time-control span{
         vertical-align: center;
         font-size: 17px;
     }
@@ -58,7 +105,7 @@
         text-align: center;
     }
 
-    .video-js .vjs-playback-rate .vjs-playback-rate-value{
+    /* .video-js .vjs-playback-rate .vjs-playback-rate-value{
     line-height: 2.4;
     font-size: 17px;
     } */
@@ -88,7 +135,7 @@
 </style>
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 <script>
-    /* const url ='https://r6---sn-3pm76n7r.googlevideo.com/videoplayback?expire=1621139624&ei=SEygYLqBCom_gQPT5KCwDA&ip=2404%3A7a84%3A5180%3Aee00%3Af902%3Af436%3A874d%3A5239&id=o-AFdkLE4IpM_B6CNJjaq294JEA4vozU3Cf_zYb3tCf4yB&itag=22&source=youtube&requiressl=yes&mh=4_&mm=31%2C29&mn=sn-3pm76n7r%2Csn-3pm7sn7z&ms=au%2Crdu&mv=m&mvi=6&pl=31&ctier=A&pfa=5&initcwndbps=2043750&hightc=yes&vprv=1&mime=video%2Fmp4&ns=mPZ1JIyrm2Tw9cUivjobRBcF&cnr=14&ratebypass=yes&dur=10865.057&lmt=1620872118116118&mt=1621117715&fvip=6&fexp=24001373%2C24007246&c=WEB&txp=7316222&n=epND_AhfQ6istxis&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cctier%2Cpfa%2Chightc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhALoOwqIgPZN5m0j7jkaGbKh5zQm5GOLirf4IrNbnTqSYAiEAhacY-0MlVRGe0sMuzaNzYqhjyv3V9afukJPhK-G5DdE%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAJmY97IpyKPmlGTkST80eEkYf1RZID2j7fcvSngA2CR1AiACHBgS1hic8t4wFJ0MifFspphHS1YfKPU7hsshtpVKSA%3D%3D'; */
+    /* const url ='https://r5---sn-3pm76n7r.googlevideo.com/videoplayback?expire=1621276591&ei=T2OiYMjTHNaOs8IPrKSOgAo&ip=2404%3A7a84%3A5180%3Aee00%3Acd27%3A1520%3A6da0%3A2f14&id=o-AO-x1clpzgQNpBlLjvYijIno7HlNsAiYenvAD0jOAv3t&itag=22&source=youtube&requiressl=yes&hcs=ir%2C&mh=qJ&mm=31%2C26&mn=sn-3pm76n7r%2Csn-oguelnl7&ms=au%2Conr&mv=m&mvi=5&pl=31&rmhost=r6---sn-3pm76n7r.googlevideo.com%2C&shardbypass=yes&ctier=A&pfa=5&initcwndbps=970000&hightc=yes&vprv=1&mime=video%2Fmp4&ns=b_AUqI35-B5GVg_VoGp9xT8F&cnr=14&ratebypass=yes&dur=9685.019&lmt=1621218727367025&mt=1621254537&fvip=1&fexp=24001373%2C24007246&c=WEB&txp=7316222&n=pUN6jRGw6wyftbIR&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cctier%2Cpfa%2Chightc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgRxKQvAFpjTiOvCrtZocmuLv6yczw8VHLIh8v0qCWsqoCIQCaxQVHCeWzwYfLq2Nnz7epKOPRWWJ5QUfuXEyHa7UkbQ%3D%3D&lsparams=hcs%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crmhost%2Cshardbypass%2Cinitcwndbps&lsig=AG3C_xAwRQIhAIz8shcnRqaIT6UbEfZ_VhX4Y6Y72TE-VNg8m6qkDeuaAiBW6eG7erjIxzNjeVJYH7sK3R6Wy79DlefVrFIuCQ4VVQ%3D%3D'; */
 const url ='file:///Z:/aaa.mp4';
 let player;
 
@@ -113,9 +160,6 @@ onLoad = function() {
         /* The children form allows you to control the position and display of each control */
         children: [
         {name: 'playToggle'},         // Play button
-        {name: 'volumePanel', // Volume control
-               inline: true, // Do not use horizontal mode
-        },
         {name: 'progressControl'},    // Play progress bar
         {name: 'currentTimeDisplay'}, // Current Played Time
         {name: 'TimeDivider'},        // '/''
@@ -123,6 +167,9 @@ onLoad = function() {
         /* {name: 'playbackRateMenuButton',
                playbackRates: [1.0,1,1,1.2,1.3,1.4]
         }, */
+        {name: 'volumePanel', // Volume control
+               inline: true, // Do not use horizontal mode
+        },
         {name: 'FullscreenToggle'}, // Full screen
         ]
     },
@@ -157,7 +204,7 @@ onLoad = function() {
 <button onClick="changeRate(+0.1)" >▶&emsp;</button>
 </div>
 `
-    player.getChild("controlBar").addChild(rateSpeed, {}, 6);
+    player.getChild("controlBar").addChild(rateSpeed, {}, 5);
 
     let currentTime = new Component(player);
     currentTime.el().innerHTML = `
@@ -168,7 +215,7 @@ onLoad = function() {
 </div>
 `
 
-    player.getChild("controlBar").addChild(currentTime, {}, 6);
+    /* player.getChild("controlBar").addChild(currentTime, {}, 6); */
 
     player.on("ratechange",function(){
         const ratevalue = document.getElementById("ratevalue");
@@ -184,6 +231,7 @@ onLoad = function() {
         duration.innerHTML = numToTime(player.duration()); 
     });
 
+    console.log(player.getChild("controlBar").el());
 // 参考
 // https://programmer.help/blogs/record-the-use-and-problems-of-a-wave-of-video.js.html
 };
