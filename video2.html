@@ -70,6 +70,30 @@
     margin-left: -1.75em;
     }
 
+    .video-js .skip {
+    position: absolute;
+    display: block;
+    font-size: 2.5em;
+    line-height: 2.3em;
+    height: 2.5em;
+    width: 2.5em;
+    opacity: 0;
+    transition: opacity 1.0s;
+    }
+
+    .skip:hover {   
+        display: block;
+        cursor : pointer;
+        opacity: 0.7;
+    }
+
+    /* .video-js.vjs-paused .skip{ 
+    display: block;
+    }
+    .video-js.vjs-error .skip{
+    display: none;
+    } */
+
     .video-js.vjs-paused .vjs-big-play-button{ 
     display: block;
     }
@@ -133,6 +157,8 @@
 
     .changeRate {
         padding-left: 24px;
+        position: absolute;
+        right: 80px;
     }
     .changeRate button{
         display:inline;
@@ -141,6 +167,7 @@
         padding-right: 0px;
         line-height: 2.4;
         font-size: 17px;
+        cursor : pointer;
     }
 --> 
 </style>
@@ -207,7 +234,7 @@ onLoad = function() {
 
     let Component = videojs.getComponent('Component');
 
-    let currentTime = new Component(player);
+    /* let currentTime = new Component(player);
     currentTime.el().innerHTML = `
         <div class="skip">
         <button id=skip1 onClick="skip(-10)">(-10s)</button>
@@ -217,7 +244,7 @@ onLoad = function() {
         <button id=skip4 onClick="skip(+30)">(+30s)</button>
         </div>
     `
-    player.getChild("controlBar").addChild(currentTime, {}, 5);
+    player.getChild("controlBar").addChild(currentTime, {}, 5); */
 
     let rateSpeed = new Component(player);
     rateSpeed.el().innerHTML = `
@@ -228,6 +255,25 @@ onLoad = function() {
         </div>
     `
     player.getChild("controlBar").addChild(rateSpeed, {}, 6);
+
+    let skip = new Component(player);
+    skip.el().innerHTML = `
+        <div class="skip vjs-paused" id='skip'>
+            <svg width="2.5em" height="2.5em" viewBox="0 0 32 32">
+            <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+            <polyline fill="none" points="3,0 3,8 11,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+            <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0">30</text>
+            </svg>
+            <svg width="2.5em" height="2.5em" viewBox="0 0 32 32">
+            <g>
+            <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+            <polyline fill="none" points="29,0 29,8 21,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+            <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0">30</text>
+            </g>
+            </svg>
+        </div>
+    `
+    player.addChild(skip, {});
 
 
     player.on("ratechange",function(){
@@ -240,9 +286,22 @@ onLoad = function() {
     }); */
 
     player.on("canplay",function(){
+        console.log('canplay');
         const duration = document.getElementById("duration");
         duration.innerHTML = numToTime(player.duration()); 
     });
+ 
+    player.on("useractive",function(){
+        console.log("useractive");
+        /* document.getElementById("skip").style.display = "block"; */
+    });
+
+    player.on("userinactive",function(){
+        /* document.getElementById("skip").style.display = "none"; */
+    });
+
+    
+
 
     console.log(player.getChild("controlBar").el());
 // 参考
@@ -253,7 +312,7 @@ window.onload = onLoad;
 onOpen = function() {
     const url2 = document.getElementById("url").value;
     const data = {
-        src: url2,
+        src: url,
         type: 'video/mp4',
     };
     player.pause();
@@ -292,10 +351,6 @@ function numToTime(num) {
 </script>
 </head>
 <body>
-    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/>
-        <text x="50%" y="50%" font-size="80%" text-anchor="middle" dominant-baseline="central" stroke-width="0.5">30</text></svg>
-    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/>
-        <text x="50%" y="50%" font-size="70%" font-family="sans-serif" font-style="normal" font-weight="lighter" text-anchor="middle" dominant-baseline="central">10</text></svg>   
     <button type="button" onClick="onOpen()">開く</button>
     <button type="button" onClick="onClick()">テスト</button>
     <textarea id="url" class="uri"></textarea>
