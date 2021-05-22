@@ -5,309 +5,219 @@
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
 <style type="text/css">
 <!--
-    .video-js{
+.video-js{
     font-size: 14px;
-    }
+}
 
-    .video-js .vjs-load-progress div,.vjs-seeking .vjs-big-play-button,.vjs-waiting .vjs-big-play-button {
-    display: none!important
-    }
-    .video-js .vjs-play-progress:before,.video-js .vjs-progress-control .vjs-play-progress:before,.video-js .vjs-remaining-time,.video-js .vjs-volume-level:after,.video-js .vjs-volume-level:before,.video-js.vjs-live .vjs-time-control.vjs-current-time,.video-js.vjs-live .vjs-time-control.vjs-duration,.video-js.vjs-live .vjs-time-control.vjs-time-divider,.video-js.vjs-no-flex .vjs-time-control.vjs-remaining-time {
-    display: none
-    }
+/* 動画上のplayボタン */
+.video-js.vjs-paused .vjs-big-play-button{ 
+    display: block;
+}
+.video-js.vjs-error .vjs-big-play-button{
+    display: none;
+}
 
+/* タイムバー */
 .video-js .vjs-progress-control {
     position: absolute;
     left: 0;
     right: 0;
     width: 100%;
     height: .5em;
-    top: -.5em
+    top: -.5em;
 }
-
-.video-js .vjs-progress-control .vjs-load-progress,.video-js .vjs-progress-control .vjs-play-progress,.video-js .vjs-progress-control .vjs-progress-holder {
-    height: 100%
-}
-
+.video-js .vjs-progress-control .vjs-load-progress,
+.video-js .vjs-progress-control .vjs-play-progress,
 .video-js .vjs-progress-control .vjs-progress-holder {
-    margin: 0
+    height: 100%;
 }
-
+.video-js .vjs-progress-control .vjs-play-progress:before{
+    display: none;
+}
+.video-js .vjs-progress-control .vjs-progress-holder {
+    margin: 0;
+}
 .video-js .vjs-progress-control:hover {
     height: 1.2em;
-    top: -1.2em
+    top: -1.2em;
 }
-
-.video-js .vjs-control-bar {
-    background-color: rgba(0,0,0,0.3) !important;
-    color: #ffffff;
-}
-
 .video-js .vjs-play-progress {
     background-color: #cc181e
 }
-
 .video-js .vjs-load-progress {
     background: rgba(255,255,255,0.3);
 }
 
+/* 画面下部のメニュー(controlbar) */
+.video-js .vjs-control-bar {
+    background-color: rgba(0,0,0,0.3);
+    color: #ffffff;
+}
+.video-js .vjs-control-bar{ 
+    display: flex;
+}
+.video-js div{ 
+    display: inline;
+}
+
+/* 再生時間 0:00 / 0:00  */
+.video-js .vjs-time-control{
+    display:inline;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.video-js .vjs-time-control span{
+    vertical-align: center;
+    font-size: 17px;
+}
+.video-js .vjs-time-divider{
+    text-align: center;
+}
+
+/* 最大化ボタン  */
 .video-js .vjs-fullscreen-control {
     position: absolute;
     right: 10px;
 }
 
-.video-js .vjs-big-play-button{ 
-    z-index: 100;
-    font-size: 2.5em;
-    line-height: 2.3em;
-    height: 2.5em;
-    width: 2.5em;
-    -webkit-border-radius: 2.5em;
-    -moz-border-radius: 2.5em;
-    border-radius: 2.5em;
-    background-color: rgba(115,133,159,.5);
-    border-width: 0.12em;
-    margin-top: -1.25em;
-    margin-left: -1.75em;
-    }
-
-    .video-js .skip {
+/*** ユーザ定義コントロール ***/
+/* skipボタン */
+.video-js .skip {
     position: absolute;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     top: 50%;
     left: 50%;
     width: 100%;
+    padding-left: 20%;
+    padding-right: 20%;
     transform: translateY(-50%) translateX(-50%);
-
     font-size: 2.5em;
     line-height: 2.3em;
     height: 2.5em;
     opacity: 0;
     transition: opacity 1.0s;
-    }
+}
+.skip:hover {   
+    cursor : pointer;
+    opacity: 0.7;
+}
 
-    .skip:hover {   
-        cursor : pointer;
-        opacity: 0.7;
-    }
-
-    .video-js.vjs-paused .vjs-big-play-button{ 
-    display: block;
-    }
-    .video-js.vjs-error .vjs-big-play-button{
-    display: none;
-    }
-    .video-js .vjs-control-bar{ 
-    display: flex;
-    }
-
-    .video-js div{ 
-    display: inline;
-    }
-
-    .video-js .vjs-remaining-time{display: none;}
-
-    .vjs-button > .vjs-icon-placeholder:before{
-    font-size: 22px;
-    line-height: 1.9;
-    }
-
-    .video-js .vjs-time-control{
-        display:inline;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-
-    .video-js .vjs-time-control span{
-        vertical-align: center;
-        font-size: 17px;
-    }
-    .video-js .vjs-time-divider{
-        text-align: center;
-    }
-
-    /* .video-js .vjs-playback-rate .vjs-playback-rate-value{
+/* 再生速度変更ボタン */
+.changeRate {
+    padding-left: 24px;
+    position: absolute;
+    right: 80px;
+}
+.changeRate button{
+    display:inline;
+    vertical-align: center;
+    padding-left: 0px;
+    padding-right: 0px;
     line-height: 2.4;
     font-size: 17px;
-    } */
+    cursor : pointer;
+}
 
-    /* .changeRate {
-        padding-left: 20px;
-    } */
-
-    .uri{
-        width: 100%;
-    }
-
-    .changeRate {
-        padding-left: 24px;
-        position: absolute;
-        right: 80px;
-    }
-    .changeRate button{
-        display:inline;
-        vertical-align: center;
-        padding-left: 0px;
-        padding-right: 0px;
-        line-height: 2.4;
-        font-size: 17px;
-        cursor : pointer;
-    }
+/*** video.js以外 ***/
+.uri{
+    resize: none;
+    width: 100%;
+    font-size: 14px;
+}
 --> 
 </style>
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 <script>
-    /* const url ='https://r5---sn-3pm76n7r.googlevideo.com/videoplayback?expire=1621276591&ei=T2OiYMjTHNaOs8IPrKSOgAo&ip=2404%3A7a84%3A5180%3Aee00%3Acd27%3A1520%3A6da0%3A2f14&id=o-AO-x1clpzgQNpBlLjvYijIno7HlNsAiYenvAD0jOAv3t&itag=22&source=youtube&requiressl=yes&hcs=ir%2C&mh=qJ&mm=31%2C26&mn=sn-3pm76n7r%2Csn-oguelnl7&ms=au%2Conr&mv=m&mvi=5&pl=31&rmhost=r6---sn-3pm76n7r.googlevideo.com%2C&shardbypass=yes&ctier=A&pfa=5&initcwndbps=970000&hightc=yes&vprv=1&mime=video%2Fmp4&ns=b_AUqI35-B5GVg_VoGp9xT8F&cnr=14&ratebypass=yes&dur=9685.019&lmt=1621218727367025&mt=1621254537&fvip=1&fexp=24001373%2C24007246&c=WEB&txp=7316222&n=pUN6jRGw6wyftbIR&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cctier%2Cpfa%2Chightc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgRxKQvAFpjTiOvCrtZocmuLv6yczw8VHLIh8v0qCWsqoCIQCaxQVHCeWzwYfLq2Nnz7epKOPRWWJ5QUfuXEyHa7UkbQ%3D%3D&lsparams=hcs%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crmhost%2Cshardbypass%2Cinitcwndbps&lsig=AG3C_xAwRQIhAIz8shcnRqaIT6UbEfZ_VhX4Y6Y72TE-VNg8m6qkDeuaAiBW6eG7erjIxzNjeVJYH7sK3R6Wy79DlefVrFIuCQ4VVQ%3D%3D'; */
-const url ='file:///Z:/aaa.mp4';
+const url0 ='https://vjs.zencdn.net/v/oceans.mp4';
 let player;
 
 onLoad = function() {
-    player = videojs('my-player', { 
-        controls: true, // Whether to show the control bar
+    player = videojs('my-player',
+    { 
+        controls: true, 
         preload: 'auto',
         autoplay: false,
-        // fluid: true, // Adaptive Width and Height
-        muted: false, // Mute or not
-        /* inactivityTimeout: false, */
-        controlBar: { // Set Control Bar Component
-        /* Set the properties and display of the components in the control bar
-        'currentTimeDisplay':true,
-        'timeDivider':true,
-        'durationDisplay':true,
-        'remainingTimeDisplay':false,
-        volumePanel: {
-        inline: false,
-        }
-        */
-        /* The children form allows you to control the position and display of each control */
-        children: [
-        {name: 'playToggle'},         // Play button
-        {name: 'progressControl'},    // Play progress bar
-        {name: 'currentTimeDisplay'}, // Current Played Time
-        {name: 'TimeDivider'},        // '/''
-        {name: 'durationDisplay'},    // Total Time
-        /* {name: 'playbackRateMenuButton',
-               playbackRates: [1.0,1,1,1.2,1.3,1.4]
-        }, */
-        {name: 'volumePanel', // Volume control
-               inline: true, // Do not use horizontal mode
-        },
-        {name: 'FullscreenToggle'}, // Full screen
-        ]
+        muted: false,
+        controlBar: {
+            children: [
+                {name: 'playToggle'},         
+                {name: 'progressControl'},   
+                {name: 'currentTimeDisplay'}, 
+                {name: 'TimeDivider'},   
+                {name: 'durationDisplay'},  
+                {name: 'volumePanel',  
+                    inline: true,  
+                },
+                {name: 'FullscreenToggle'},
+            ]
     },
-    // sources:[ // Video Source
-    //     {
-    //         src: url,
-    //         type: 'video/mp4',
-    //     }
-    // ]
-    }, function (){
-        //   console.log('The video is ready to play',this);
-        //   var lll = player.getChild("controlBar").getChild("currentTimeDisplay");
-        // //   console.log(lll.show);
-        //   lll.show;
-        //   console.log(lll.hide());
-        // //   lll.el().style.width = 100;
-        //   lll.el().style.height = 100;
-          
-        //   console.log(lll.currentHeight());
-        //   console.log(lll.currentWidth());
-});
-    // var l = player.getChild("controlBar").getChild("currentTimeDisplay");
-    // console.log(l);
+    });
 
     let Component = videojs.getComponent('Component');
+    let newComponent;
+    let newElement;
 
-    /* let currentTime = new Component(player);
-    currentTime.el().innerHTML = `
+    // skipボタンの追加
+    const skipTimes = [-10, -3, 10, 30];
+    newComponent = new Component(player);
+    newElement = `
         <div class="skip">
-        <button id=skip1 onClick="skip(-10)">(-10s)</button>
-        <button id=skip2 onClick="skip(-3)">(-3s)</button>
-        <button id=skip0>…</button>
-        <button id=skip3 onClick="skip(+10)">(+10s)</button>
-        <button id=skip4 onClick="skip(+30)">(+30s)</button>
+            <svg onClick="skip({???0})" width="2.5em" height="2.5em" viewBox="0 0 32 32">
+                <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <polyline fill="none" points="3,0 3,8 11,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0"
+                >{???0}</text>
+            </svg>
+            <svg onClick="skip({???1})" width="2.5em" height="2.5em" viewBox="0 0 32 32">
+                <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <polyline fill="none" points="3,0 3,8 11,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0"
+                >{???1}</text>
+            </svg>
+            <svg onClick="skip({???2})" width="2.5em" height="2.5em" viewBox="0 0 32 32">
+                <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <polyline fill="none" points="29,0 29,8 21,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0"
+                >{???2}</text>
+            </svg>
+            <svg onClick="skip({???3})" width="2.5em" height="2.5em" viewBox="0 0 32 32">
+                <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <polyline fill="none" points="29,0 29,8 21,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0"
+                >{???3}</text>
+            </svg>
         </div>
     `
-    player.getChild("controlBar").addChild(currentTime, {}, 5); */
+    for(i=0;i<4;i++){
+        newElement = newElement.replace("{???" + i +"}", skipTimes[i]);
+        newElement = newElement.replace("{???" + i +"}", Math.abs(skipTimes[i]));
+    }
+    newComponent.el().innerHTML = newElement;
+    player.addChild(newComponent, {});
 
-    let rateSpeed = new Component(player);
-    rateSpeed.el().innerHTML = `
+    // 再生速度変更ボタンの作成
+    newComponent = new Component(player);
+    newElement = `
         <div class="changeRate">
-        <button onClick="changeRate(-0.1)" >&emsp;◀</button>
-        <button onClick="setRate(1.0)" class="ratevalue" id="ratevalue">1.0x</button>
-        <button onClick="changeRate(+0.1)" >▶&emsp;</button>
+            <button onClick="changeRate(-0.1)">&emsp;◀</button>
+            <button onClick="setRate(1.0)" class="ratevalue" id="ratevalue">1.0x</button>
+            <button onClick="changeRate(+0.1)">▶&emsp;</button>
         </div>
     `
-    player.getChild("controlBar").addChild(rateSpeed, {}, 6);
+    newComponent.el().innerHTML = newElement
+    player.getChild("controlBar").addChild(newComponent, {}, 6);
 
-    let skip = new Component(player);
-    skip.el().innerHTML = `
-        <div class="skip">
-            <svg width="2.5em" height="2.5em" viewBox="0 0 32 32">
-                <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <polyline fill="none" points="3,0 3,8 11,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0">10</text>
-            </svg>
-            <svg width="2.5em" height="2.5em" viewBox="0 0 32 32">
-                <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <polyline fill="none" points="3,0 3,8 11,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0">3</text>
-            </svg>
-            <svg width="2.5em" height="2.5em" viewBox="0 0 32 32">
-            <g>
-                <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <polyline fill="none" points="29,0 29,8 21,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0">10</text>
-            </g>
-            </svg>
-            <svg width="2.5em" height="2.5em" viewBox="0 0 32 32">
-            <g>
-                <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <polyline fill="none" points="29,0 29,8 21,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0">30</text>
-            </g>
-            </svg>
-        </div>
-    `
-    player.addChild(skip, {});
-
-
+    // 再生速度変更時
     player.on("ratechange",function(){
-        const ratevalue = document.getElementById("ratevalue");
-        ratevalue.innerHTML = (player.playbackRate()).toFixed(1) + 'x'; 
+        document.getElementById("ratevalue").innerHTML = (player.playbackRate()).toFixed(1) + 'x'; 
     });
-    /* player.on("timeupdate",function(){
-        const time = document.getElementById("time");
-        time.innerHTML = '&nbsp;' + numToTime(player.currentTime()); 
-    }); */
-
-    player.on("canplay",function(){
-        console.log('canplay');
-        const duration = document.getElementById("duration");
-        duration.innerHTML = numToTime(player.duration()); 
-    });
- 
-    player.on("useractive",function(){
-        console.log("useractive");
-        /* document.getElementById("skip").style.display = "block"; */
-    });
-
-    player.on("userinactive",function(){
-        /* document.getElementById("skip").style.display = "none"; */
-    });
-
-    
-
-
-    console.log(player.getChild("controlBar").el());
-// 参考
-// https://programmer.help/blogs/record-the-use-and-problems-of-a-wave-of-video.js.html
 };
 window.onload = onLoad;
 
 onOpen = function() {
-    const url2 = document.getElementById("url").value;
+    let url = document.getElementById("url").value;
+    if (!url) {url = url0}
     const data = {
         src: url,
         type: 'video/mp4',
@@ -330,28 +240,13 @@ skip = function(sec) {
     let newTime = player.currentTime() + sec;
     player.currentTime(newTime);
 };
-
-function numToTime(num) {
-    const h = Math.floor(num % (24 * 60 * 60) / (60 * 60));
-    const m = Math.floor(num % (24 * 60 * 60) % (60 * 60) / 60);
-    const s = Math.floor(num % (24 * 60 * 60) % (60 * 60) % 60);
-    const ss = ( '00' + s ).slice( -2 );
-    const mm = ( '00' + m ).slice( -2 );
-
-    if (h==0) {
-        return m + ':' + ss;
-    }
-    return h + ':' + mm + ':' + ss;
-}
-
-
 </script>
+
 </head>
 <body>
-    <button type="button" onClick="onOpen()">開く</button>
-    <button type="button" onClick="onClick()">テスト</button>
     <textarea id="url" class="uri"></textarea>
-    <video id="my-player" class="video-js vjs-big-play-centered" 
+    <button type="button" onClick="onOpen()">開く</button>
+    <video id="my-player" class="video-js" 
         width="800"
         height="450"
         >
