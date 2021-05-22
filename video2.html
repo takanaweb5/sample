@@ -99,8 +99,10 @@
     transition: opacity 1.0s;
 }
 .skip:hover {   
-    cursor : pointer;
     opacity: 0.7;
+}
+.skip svg:hover {   
+    cursor : pointer;
 }
 
 /* 再生速度変更ボタン */
@@ -123,7 +125,6 @@
 .uri{
     resize: none;
     width: 100%;
-    font-size: 14px;
 }
 --> 
 </style>
@@ -162,29 +163,29 @@ onLoad = function() {
     const skipTimes = [-10, -3, 10, 30];
     newComponent = new Component(player);
     newElement = `
-        <div class="skip">
+        <div class="skip" id="skip">
             <svg onClick="skip({???0})" width="2.5em" height="2.5em" viewBox="0 0 32 32">
-                <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <polyline fill="none" points="3,0 3,8 11,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0"
+                <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <polyline fill="none" points="3,0 3,8 11,8" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ddd" stroke="#fff" stroke-width="0.5"
                 >{???0}</text>
             </svg>
             <svg onClick="skip({???1})" width="2.5em" height="2.5em" viewBox="0 0 32 32">
-                <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <polyline fill="none" points="3,0 3,8 11,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0"
+                <path d="M1,16 c0,8.284,6.716,15,15,15s15-6.716,15-15S24.284,1,16,1C10.657,1,5.966,3.794,3.309,8" fill="none" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <polyline fill="none" points="3,0 3,8 11,8" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ddd" stroke="#fff" stroke-width="0.5"
                 >{???1}</text>
             </svg>
             <svg onClick="skip({???2})" width="2.5em" height="2.5em" viewBox="0 0 32 32">
-                <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <polyline fill="none" points="29,0 29,8 21,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0"
+                <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <polyline fill="none" points="29,0 29,8 21,8" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ddd" stroke="#fff" stroke-width="0.5"
                 >{???2}</text>
             </svg>
             <svg onClick="skip({???3})" width="2.5em" height="2.5em" viewBox="0 0 32 32">
-                <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <polyline fill="none" points="29,0 29,8 21,8" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ffffff" stroke="#ffffff" stroke-width="0"
+                <path d="M31,16 c0,8.284-6.716,15-15,15S1,24.284,1,16S7.716,1,16,1c5.343,0,10.034,2.794,12.691,7" fill="none" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <polyline fill="none" points="29,0 29,8 21,8" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <text x="51%" y="52%" font-size="50%" font-family="sans-serif" text-anchor="middle" dominant-baseline="central" fill="#ddd" stroke="#fff" stroke-width="0.5"
                 >{???3}</text>
             </svg>
         </div>
@@ -195,6 +196,8 @@ onLoad = function() {
     }
     newComponent.el().innerHTML = newElement;
     player.addChild(newComponent, {});
+
+    document.getElementById("skip").addEventListener("click", onPause);
 
     // 再生速度変更ボタンの作成
     newComponent = new Component(player);
@@ -239,6 +242,15 @@ setRate = function(rate) {
 skip = function(sec) {
     let newTime = player.currentTime() + sec;
     player.currentTime(newTime);
+};
+
+function onPause(e) {
+    if (e.target.tagName.toLowerCase() != "div") {return};
+    if (player.paused()){
+        player.play();
+    }else{
+        player.pause();
+    }
 };
 </script>
 
