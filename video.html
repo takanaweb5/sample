@@ -127,10 +127,53 @@ svg {
 </style>
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 <script>
-const url0 ='https://vjs.zencdn.net/v/oceans.mp4';
+let url0 ='https://vjs.zencdn.net/v/oceans.mp4';
 let player;
+window.onload = onLoad;
 
-onLoad = function() {
+function onLoad() {
+    CreateVideoPlayer();
+    const herf = new URL(window.location.href);
+    const videoUri = herf.search.substr(1);
+    document.getElementById("url").value = videoUri;
+};
+
+function onOpen() {
+    let url = document.getElementById("url").value;
+    if (!url) {url = url0};
+    loadVideo(url);
+};
+
+function loadVideo(url) {
+    const data = {
+        src: url,
+        type: 'video/mp4',
+    };
+    player.pause();
+    player.src(data);
+    player.load(data);
+};
+
+function onPause(e) {
+    if (e.target.tagName.toLowerCase() != "div") {return};
+    if (player.paused()){
+        player.play();
+    }else{
+        player.pause();
+    }
+};
+
+function changeRate(rate) {
+    const newRate = (player.playbackRate() + rate).toFixed(1);
+    player.playbackRate(newRate);
+};
+
+function skip(sec) {
+    let newTime = player.currentTime() + sec;
+    player.currentTime(newTime);
+};
+
+function CreateVideoPlayer() {
     player = videojs('my-player',
     { 
         controls: true, 
@@ -212,38 +255,6 @@ onLoad = function() {
     player.on("ratechange",function(){
         document.getElementById("ratevalue").innerHTML = (player.playbackRate()).toFixed(1) + 'x'; 
     });
-};
-window.onload = onLoad;
-
-onOpen = function() {
-    let url = document.getElementById("url").value;
-    if (!url) {url = url0}
-    const data = {
-        src: url,
-        type: 'video/mp4',
-    };
-    player.pause();
-    player.src(data);
-    player.load(data);
-};
-
-changeRate = function(rate) {
-    const newRate = (player.playbackRate() + rate).toFixed(1);
-    player.playbackRate(newRate);
-};
-
-skip = function(sec) {
-    let newTime = player.currentTime() + sec;
-    player.currentTime(newTime);
-};
-
-function onPause(e) {
-    if (e.target.tagName.toLowerCase() != "div") {return};
-    if (player.paused()){
-        player.play();
-    }else{
-        player.pause();
-    }
 };
 </script>
 
