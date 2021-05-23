@@ -87,3 +87,14 @@ javascript: (function() {
         };
     };
 })()
+
+
+//*****************************************************************************
+//[概要] ユーチューブの動画を
+//[注意] 動画プレーヤーに送る
+//*****************************************************************************
+javascript: (function() {
+	const video = 'https://takanaweb5.github.io/sample/video.html?';
+	const fms = ytInitialPlayerResponse.streamingData.formats;
+	window.open(video + fms[1].url);
+})()
