@@ -50,14 +50,10 @@
 
 /* 画面下部のメニュー(controlbar) */
 .video-js .vjs-control-bar {
+    display: flex;
     background-color: rgba(0,0,0,0.3);
     color: #ffffff;
-}
-.video-js .vjs-control-bar{ 
-    display: flex;
-}
-.video-js div{ 
-    display: inline;
+    user-select: none;
 }
 
 /* 再生時間 0:00 / 0:00  */
@@ -97,6 +93,7 @@
     height: 2.5em;
     opacity: 0;
     transition: opacity 1.0s;
+    user-select: none;
 }
 .skip:hover {   
     opacity: 0.7;
@@ -110,14 +107,12 @@
     padding-left: 24px;
     position: absolute;
     right: 80px;
-}
-.changeRate button{
+    font-size: 17px;
     display:inline;
     vertical-align: center;
-    padding-left: 0px;
-    padding-right: 0px;
     line-height: 2.4;
-    font-size: 17px;
+}
+.changeRate button{
     cursor : pointer;
 }
 
@@ -203,9 +198,9 @@ onLoad = function() {
     newComponent = new Component(player);
     newElement = `
         <div class="changeRate">
-            <button onClick="changeRate(-0.1)">&emsp;◀</button>
-            <button onClick="setRate(1.0)" class="ratevalue" id="ratevalue">1.0x</button>
-            <button onClick="changeRate(+0.1)">▶&emsp;</button>
+            <button onClick="changeRate(-0.1)">&nbsp;◀</button>
+            <span onClick="player.playbackRate(1.0)" class="ratevalue" id="ratevalue">1.0x</span>
+            <button onClick="changeRate(+0.1)">▶&nbsp;</button>
         </div>
     `
     newComponent.el().innerHTML = newElement
@@ -235,10 +230,6 @@ changeRate = function(rate) {
     player.playbackRate(newRate);
 };
 
-setRate = function(rate) {
-    player.playbackRate(rate);
-};
-
 skip = function(sec) {
     let newTime = player.currentTime() + sec;
     player.currentTime(newTime);
@@ -258,10 +249,6 @@ function onPause(e) {
 <body>
     <textarea id="url" class="uri"></textarea>
     <button type="button" onClick="onOpen()">開く</button>
-    <video id="my-player" class="video-js" 
-        width="800"
-        height="450"
-        >
-    </video>
+    <video id="my-player" class="video-js" width="800"height="450"></video>
 </body>
 </html>
